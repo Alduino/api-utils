@@ -27,7 +27,7 @@ request to.
 An endpoint implementation would look something like:
 
 ```typescript
-import {Endpoint, key} from "@rg/api-utils";
+import {Endpoint, key} from "@alduino/api-utils";
 
 export interface Request {
     userId: string;
@@ -69,7 +69,7 @@ With this form, you generate functions that wrap `useSwr` and provide the endpoi
 code might look something like:
 
 ```typescript
-import {useSwr} from "@rg/api-utils";
+import {useSwr} from "@alduino/api-utils";
 import {SWRConfiguration, SWRResponse} from "swr";
 
 export function useUserAvatar(
@@ -101,7 +101,7 @@ and `useSwrInfinite` functions provided by this library. A user of your library 
 ```typescript
 import {useSwr, userAvatarEndpoint} from "my-api-client";
 
-const {data, error} = useSwr(userAvatar, {userId: "bob", size: 256});
+const {data, error} = useSwr(userAvatarEndpoint, {userId: "bob", size: 256});
 ```
 
 ## API
