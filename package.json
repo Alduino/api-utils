@@ -1,0 +1,81 @@
+{
+    "name": "@alduino/api-utils",
+    "version": "0.1.0",
+    "main": "dist/index.js",
+    "module": "dist/index.esm.js",
+    "typings": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "pkg-lib watch",
+        "build": "pkg-lib build",
+        "test": "jest",
+        "size": "size-limit",
+        "analyse": "size-limit --why",
+        "release": "pnpm run build && changeset publish",
+        "format": "prettier . --write && eslint --fix .",
+        "lint": "eslint ."
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "linters": {
+            "*.(ts|tsx)": [
+                "eslint --fix",
+                "prettier --write"
+            ]
+        }
+    },
+    "size-limit": [
+        {
+            "path": "dist/production.min.js",
+            "limit": "10 kb"
+        },
+        {
+            "path": "dist/index.esm",
+            "limit": "10 kb"
+        }
+    ],
+    "jest-junit": {
+        "outputDirectory": "reports",
+        "outputName": "jest-junit.xml",
+        "ancestorSeparator": " › ",
+        "uniqueOutputName": "false",
+        "suiteNameTemplate": "{filepath}",
+        "classNameTemplate": "{classname}",
+        "titleTemplate": "{title}"
+    },
+    "devDependencies": {
+        "@alduino/pkg-lib": "^0.5.0",
+        "@size-limit/preset-small-lib": "^5.0.3",
+        "@types/jest": "^27.0.1",
+        "@types/react": "^17.0.19",
+        "@typescript-eslint/eslint-plugin": "^4.29.3",
+        "@typescript-eslint/parser": "^4.29.3",
+        "benny": "^3.6.15",
+        "eslint": "^7.32.0",
+        "eslint-plugin-import": "^2.24.2",
+        "eslint-plugin-react": "^7.24.0",
+        "husky": "^7.0.2",
+        "jest": "^27.1.0",
+        "jest-junit": "^12.2.0",
+        "lint-staged": "^11.1.2",
+        "prettier": "^2.3.2",
+        "react": "^17.0.2",
+        "size-limit": "^5.0.3",
+        "ts-jest": "^27.0.5",
+        "typescript": "^4.4.2"
+    },
+    "peerDependencies": {
+        "react": "^16 || ^17"
+    },
+    "dependencies": {
+        "swr": "^1.0.0",
+        "tiny-invariant": "^1.1.0",
+        "tslib": "^2.3.1"
+    }
+}
