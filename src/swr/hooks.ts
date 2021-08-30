@@ -2,7 +2,6 @@ import {useCallback, useMemo} from "react";
 import useSWR, {KeyLoader, SWRConfiguration, SWRResponse} from "swr";
 import useSWRInfinite, {SWRInfiniteResponse} from "swr/infinite";
 import invariant from "tiny-invariant";
-import {useApiContext} from "../api-ctx";
 import Endpoint from "./Endpoint";
 import RequestLoader from "./RequestLoader";
 import getRequestArguments from "./getRequestArguments";
@@ -21,7 +20,7 @@ export function useSwr<Request, Response>(
     config?: SWRConfiguration,
     _fnName = "useSwr"
 ): SWRResponse<Response, Error> {
-    const ctx = useApiContext();
+    const ctx = endpoint.apiContext.use();
     invariant(
         ctx !== null,
         `${_fnName} is being used in a component that is not wrapped by <ApiProvider />`
@@ -67,7 +66,7 @@ export function useSwrInfinite<Request, Response>(
     config?: SWRConfiguration,
     _fnName = "useSwrInfinite"
 ): SWRInfiniteResponse<Response, Error> {
-    const ctx = useApiContext();
+    const ctx = endpoint.apiContext.use();
     invariant(
         ctx !== null,
         `${_fnName} is being used in a component that is not wrapped by <ApiProvider />`

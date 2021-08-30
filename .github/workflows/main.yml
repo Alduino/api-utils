@@ -23,8 +23,10 @@ jobs:
                   node-version: 14
             - name: Install pnpm
               run: npm i pnpm@latest -g
-            - name: Test
+            - name: Install
               run: pnpm it
+            - name: Test
+              run: pnpm run test:ci
             - name: Test Report
               uses: dorny/test-reporter@v1
               with:

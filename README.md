@@ -12,12 +12,10 @@ This library contains a collection of utilities to build an API client.
 First off, there are some things you should re-export from the library, as they are meant for use by your library's
 user.
 
--   `ApiProvider`: This component tells the library where the API is located, and allows the user to supply default
-    configuration to SWR
--   `useSwr`, `useSwrInfinite`: These hooks are the core of how your API will be used. If you use wrapper functions, you
-    don't need to export these.
--   `SWRConfiguration`, `SWRResponse`, `SWRInfiniteConfiguration`, `SWRInfiniteResponse`: Theses are various types used
-    by `useSwr` (re-exported from the `swr` library)
+- `useSwr`, `useSwrInfinite`: These hooks are the core of how your API will be used. If you use wrapper functions, you
+  don't need to export these.
+- `SWRConfiguration`, `SWRResponse`, `SWRInfiniteConfiguration`, `SWRInfiniteResponse`: Theses are various types used
+  by `useSwr` (re-exported from the `swr` library)
 
 ### Usage
 
@@ -40,6 +38,7 @@ export interface Response {
 }
 
 export const userAvatarEndpoint: Endpoint<Request, Response> = {
+    apiContext,
     getKey({userId, size}: Request) {
         return key`user/${userId}/avatar?${{size}}`;
     },
@@ -54,6 +53,26 @@ export const userAvatarEndpoint: Endpoint<Request, Response> = {
 
 You can generate the `Request` interface by merging the URL parameters and the query parameters, then split them back
 out again via object destructuring in `getKey()`.
+
+#### API Context
+
+Notice the `apiContext` key in the endpoint above. This is an "API Context", which is what api-utils uses to map your
+keys to a full URL, as well as a way for a user to specify configuration for swr. The API context is based off of React
+Contexts.
+
+In a file that can be imported by any endpoint files, add this code (it can be a static file, no generation is needed):
+
+```typescript
+import {createContext} from "@alduino/api-utils";
+
+export const apiContext = createContext();
+export const ApiProvider = context.Provider;
+```
+
+The `apiContext` export should then be used as the `apiContext` value you saw in the endpoint example above.
+
+You need to export the `ApiProvider` to users of your library, as it is how they specify required configuration like the
+base URL.
 
 ### Library API
 
