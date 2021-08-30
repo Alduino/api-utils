@@ -36,7 +36,7 @@
             "limit": "10 kb"
         },
         {
-            "path": "dist/index.esm",
+            "path": "dist/index.esm.js",
             "limit": "10 kb"
         }
     ],
