@@ -95,7 +95,8 @@ export function useSwrInfinite<Request, Response>(
 }
 
 /**
- * Runs the request when the callback is executed (using `react-async-hook`'s `useAsyncCallback`)
+ * Runs the request when the callback is executed (using `react-async-hook`'s `useAsyncCallback`). Request is passed
+ * to the hook instead of the `execute` function.
  * @param endpoint The endpoint to send the request to
  * @param request Data for the request
  * @param config Extra configuration for `useAsyncCallback`
@@ -153,4 +154,53 @@ export function useFetch<Request, Response>(
     }, [args, endpoint]);
 
     return useAsyncCallback<Response | null>(fn, fullConfig);
+}
+
+/**
+ * Runs the request when the callback is executed (using `react-async-hook`'s `useAsyncCallback`). Request is passed
+ * to the `execute` function instead of the hook.
+ * @param endpoint The endpoint to send the request to
+ * @param config Extra configuration for `useAsyncCallback`
+ * @param _fnName Internal parameter for library use only
+ */
+export function useFetchDeferred<Request, Response>(
+    endpoint: Endpoint<Request, Response>,
+    config?: UseAsyncCallbackOptions<Response>,
+    _fnName = "useFetchDeferred"
+): UseAsyncReturn<Response | null, [Request | null]> {
+    type Body = Request extends RequestWithBody<infer Body> ? Body : never;
+
+    const ctx = endpoint.apiContext.use();
+    invariant(
+        ctx !== null,
+        `${_fnName} is being used in a component that is not wrapped by <ApiProvider />`
+    );
+    const {baseUrl, fetchConfig} = ctx;
+
+    const fullConfig = useMemo(
+        () => ({
+            ...fetchConfig,
+            ...config
+        }),
+        [fetchConfig, config]
+    ) as UseAsyncCallbackOptions<Response | null>;
+
+    const loadArgs = useCallback((request: Request | null) => {
+        if (request === null) return null;
+
+        const url = getUrlFromEndpoint(endpoint, request, baseUrl);
+        if (isRequestWithBody(request))
+            return [url, request.body] as [string, Body];
+        return [url] as [string, Body?];
+    }, [baseUrl]);
+
+    const fn = useCallback(async (req: Request | null) => {
+        if (req === null) return null;
+        const args = loadArgs(req);
+        if (args === null) return null;
+
+        return await endpoint.fetch(...args);
+    }, [loadArgs, endpoint]);
+
+    return useAsyncCallback<Response | null, [Request | null]>(fn, fullConfig);
 }
