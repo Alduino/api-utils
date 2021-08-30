@@ -10,7 +10,7 @@ import Endpoint from "./Endpoint";
  * @private
  */
 export default function getUrlFromEndpoint<Request>(
-    endpoint: Omit<Endpoint<Request, unknown>, "fetch">,
+    endpoint: Pick<Endpoint<Request, unknown>, "getKey">,
     request: Request,
     baseUrl: string
 ): string {
