@@ -107,7 +107,7 @@ export function useFetch<Request, Response>(
     request: Request | null | (() => Request | null),
     config?: UseAsyncCallbackOptions<Response>,
     _fnName = "useFetch"
-): UseAsyncReturn<Response | null> {
+): UseAsyncReturn<Response | null, []> {
     type Body = Request extends RequestWithBody<infer Body> ? Body : never;
 
     const ctx = endpoint.apiContext.use();
@@ -153,7 +153,7 @@ export function useFetch<Request, Response>(
         return await endpoint.fetch(...argsVal);
     }, [args, endpoint]);
 
-    return useAsyncCallback<Response | null>(fn, fullConfig);
+    return useAsyncCallback<Response | null, []>(fn, fullConfig);
 }
 
 /**
