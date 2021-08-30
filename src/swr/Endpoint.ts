@@ -1,4 +1,5 @@
 import {RequestWithBody, RequestWithOptionalBody} from "./RequestWithBody";
+import ApiContext from "../api-ctx";
 
 type Fetch<Request, Response> = Request extends RequestWithBody<infer Body>
     ? (url: string, body: Body) => Response | Promise<Response>
@@ -14,6 +15,7 @@ type Fetch<Request, Response> = Request extends RequestWithBody<infer Body>
  *
  * @example
  * const userEndpoint: Endpoint<UserRequest, UserResponse> = {
+ *     apiContext,
  *     getKey({id}) {
  *         return key`users/${id}`;
  *     },
@@ -23,6 +25,8 @@ type Fetch<Request, Response> = Request extends RequestWithBody<infer Body>
  * };
  */
 export default interface Endpoint<Request, Response> {
+    apiContext: ApiContext;
+
     /**
      * Fetch from the given URL and return the response parsed correctly for this
      * endpoint
