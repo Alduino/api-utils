@@ -1,10 +1,18 @@
-import {createContext, ReactElement, ReactNode, useContext, useMemo} from "react";
-import ApiContextType from "./ApiContextType";
+import {
+    createContext,
+    ReactElement,
+    ReactNode,
+    useContext,
+    useMemo
+} from "react";
+import {UseAsyncCallbackOptions} from "react-async-hook";
 import {SWRConfiguration} from "swr";
+import ApiContextType from "./ApiContextType";
 
 export interface ApiProviderProps {
     baseUrl: string;
     swrConfig?: SWRConfiguration;
+    fetchConfig?: UseAsyncCallbackOptions<never>;
     children: ReactNode;
 }
 
@@ -20,11 +28,17 @@ export class ApiContextImpl implements ApiContext {
         return useContext(this.context);
     }
 
-    Provider({baseUrl, swrConfig, children}: ApiProviderProps): ReactElement {
+    Provider({
+        baseUrl,
+        swrConfig,
+        fetchConfig,
+        children
+    }: ApiProviderProps): ReactElement {
         const contextValue = useMemo<ApiContextType>(
             () => ({
                 baseUrl,
-                swrConfig: swrConfig ?? {}
+                swrConfig: swrConfig ?? {},
+                fetchConfig: fetchConfig ?? {}
             }),
             [baseUrl, swrConfig]
         );

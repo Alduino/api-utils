@@ -12,8 +12,8 @@ This library contains a collection of utilities to build an API client.
 First off, there are some things you should re-export from the library, as they are meant for use by your library's
 user.
 
-- `useSwr`, `useSwrInfinite`: These hooks are the core of how your API will be used. If you use wrapper functions, you
-  don't need to export these.
+- `useSwr`, `useSwrInfinite`, `useFetch`, `useFetchDeferred`: These hooks are the core of how your API will be used. If
+  you use wrapper functions, you don't need to export these.
 - `SWRConfiguration`, `SWRResponse`, `SWRInfiniteConfiguration`, `SWRInfiniteResponse`: Theses are various types used
   by `useSwr` (re-exported from the `swr` library)
 
@@ -84,18 +84,34 @@ functions are recommended because they provide a better DX.
 > This form is recommended for better DX and API safety - each endpoint has its own hook, and it is not possible
 > to `useInfinite` where it doesn't make sense.
 
-With this form, you generate functions that wrap `useSwr` and provide the endpoint to it automatically. The generated
-code might look something like:
+With this form, you generate functions that wrap `useSwr`, `useFetch`, and `useFetchDeferred`, and provide the endpoint
+to it automatically. The generated code might look something like:
 
 ```typescript
-import {useSwr} from "@alduino/api-utils";
-import {SWRConfiguration, SWRResponse} from "swr";
+import {useSwr, SWRConfiguration, SWRResponse} from "@alduino/api-utils";
 
 export function useUserAvatar(
     request: Request,
     config?: SWRConfiguration
 ): SWRResponse<Response, Error> {
     return useSwr(userAvatarEndpoint, request, config, "useUserAvatar");
+}
+
+export function useUserAvatarFetch(
+    request: Request,
+    config?: UseAsyncCallbackOptions<Response>
+): UseAsyncReturn<Response | null, []> {
+    return useFetch(userAvatarEndpoint, request, config, "useUserAvatarFetch");
+}
+
+export function useUserAvatarFetchDeferred(
+    config?: UseAsyncCallbackOptions<Response>
+): UseAsyncReturn<Response | null, [Request | null]> {
+    return useFetchDeferred(
+        userAvatarEndpoint,
+        config,
+        "useUserAvatarFetchDeferred"
+    );
 }
 ```
 
@@ -107,15 +123,21 @@ This can then be consumed as:
 ```typescript
 import {useUserAvatar} from "my-api-client";
 
+// declarative mode: swr hook
 const {data, error} = useUserAvatar({userId: "bob", size: 256});
+
+// imperative mode: react-async-hook
+const {result, error, execute} = useUserAvatarFetch({userId: "bob", size: 256});
+execute();
 ```
 
 You should also generate `useSwrInfinite` versions where relevant.
 
 #### Exposed endpoints
 
-If you do not want to generate wrapper functions, you can export your `Endpoint` values as well as the `useSwr`
-and `useSwrInfinite` functions provided by this library. A user of your library can then call `useSwr` directly:
+If you do not want to generate wrapper functions, you can export your `Endpoint` values as well as the `useSwr`,
+`useSwrInfinite`, `useFetch`, and `useFetchDeferred` functions provided by this library. A user of your library can then
+call `useSwr` directly:
 
 ```typescript
 import {useSwr, userAvatarEndpoint} from "my-api-client";
@@ -127,7 +149,12 @@ const {data, error} = useSwr(userAvatarEndpoint, {userId: "bob", size: 256});
 
 ### `Endpoint<Request, Response>`
 
-Tells the library how and where to send a request. An `Endpoint` has two keys:
+Tells the library how and where to send a request. An `Endpoint` has three keys:
+
+#### `apiContext`
+
+This is the React context returned from `createContext()` that specifies information like the base URL and default
+request options.
 
 #### `getKey(request: Request)`
 

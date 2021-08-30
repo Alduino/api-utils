@@ -1,5 +1,5 @@
-import {RequestWithBody, RequestWithOptionalBody} from "./RequestWithBody";
 import ApiContext from "../api-ctx";
+import {RequestWithBody, RequestWithOptionalBody} from "./RequestWithBody";
 
 type Fetch<Request, Response> = Request extends RequestWithBody<infer Body>
     ? (url: string, body: Body) => Response | Promise<Response>

@@ -18,6 +18,7 @@ specifiers:
   lint-staged: ^11.1.2
   prettier: ^2.3.2
   react: ^17.0.2
+  react-async-hook: ^3.6.2
   size-limit: ^5.0.3
   swr: ^1.0.0
   tiny-invariant: ^1.1.0
@@ -26,6 +27,7 @@ specifiers:
   typescript: ^4.4.2
 
 dependencies:
+  react-async-hook: 3.6.2_react@17.0.2
   swr: 1.0.0_react@17.0.2
   tiny-invariant: 1.1.0
   tslib: 2.3.1
@@ -6595,6 +6597,15 @@ packages:
       randombytes: 2.1.0
       safe-buffer: 5.2.1
     dev: true
+
+  /react-async-hook/3.6.2_react@17.0.2:
+    resolution: {integrity: sha512-RkwHCJ8V7I6umKZLHneapuTRWf+eO4LOj0qUwUDsSn27jrAOcW6ClbV3x22Z4hVxH9bA0zb7y+ozDJDJ8PnZoA==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      react: 17.0.2
+    dev: false
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
