@@ -88,7 +88,7 @@ With this form, you generate functions that wrap `useSwr`, `useFetch`, and `useF
 to it automatically. The generated code might look something like:
 
 ```typescript
-import {useSwr, SWRConfiguration, SWRResponse} from "@alduino/api-utils";
+import {useSwr, useFetch, useFetchDeferred, sendRequest, SWRConfiguration, SWRResponse} from "@alduino/api-utils";
 
 export function useUserAvatar(
     request: Request,
@@ -112,6 +112,10 @@ export function useUserAvatarFetchDeferred(
         config,
         "useUserAvatarFetchDeferred"
     );
+}
+
+export function sendUserAvatarRequest(baseUrl: string, request: Request): Promise<Response> {
+    return sendRequest(userAvatarEndpoint, baseUrl, request);
 }
 ```
 
