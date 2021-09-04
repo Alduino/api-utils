@@ -185,22 +185,46 @@ export function useFetchDeferred<Request, Response>(
         [fetchConfig, config]
     ) as UseAsyncCallbackOptions<Response | null>;
 
-    const loadArgs = useCallback((request: Request | null) => {
-        if (request === null) return null;
+    const loadArgs = useCallback(
+        (request: Request | null) => {
+            if (request === null) return null;
 
-        const url = getUrlFromEndpoint(endpoint, request, baseUrl);
-        if (isRequestWithBody(request))
-            return [url, request.body] as [string, Body];
-        return [url] as [string, Body?];
-    }, [baseUrl]);
+            const url = getUrlFromEndpoint(endpoint, request, baseUrl);
+            if (isRequestWithBody(request))
+                return [url, request.body] as [string, Body];
+            return [url] as [string, Body?];
+        },
+        [baseUrl]
+    );
 
-    const fn = useCallback(async (req: Request | null) => {
-        if (req === null) return null;
-        const args = loadArgs(req);
-        if (args === null) return null;
+    const fn = useCallback(
+        async (req: Request | null) => {
+            if (req === null) return null;
+            const args = loadArgs(req);
+            if (args === null) return null;
 
-        return await endpoint.fetch(...args);
-    }, [loadArgs, endpoint]);
+            return await endpoint.fetch(...args);
+        },
+        [loadArgs, endpoint]
+    );
 
     return useAsyncCallback<Response | null, [Request | null]>(fn, fullConfig);
+}
+
+/**
+ * Request function that does not use the React context, for use in server-side rendering.
+ * @param endpoint The endpoint to send the request to
+ * @param baseUrl The URL that the API is hosted at
+ * @param request The request data
+ */
+export async function sendRequest<Request, Response>(
+    endpoint: Endpoint<Request, Response>,
+    baseUrl: string,
+    request: Request
+): Promise<Response> {
+    const url = getUrlFromEndpoint(endpoint, request, baseUrl);
+    const args = isRequestWithBody(request)
+        ? ([url, request.body] as [string, Body])
+        : ([url] as [string, Body?]);
+    return await endpoint.fetch(...args);
 }
