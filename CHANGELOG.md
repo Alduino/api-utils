@@ -1,5 +1,11 @@
 # @alduino/api-utils
 
+## 0.3.0
+
+### Minor Changes
+
+-   [#9](https://github.com/Alduino/api-utils/pull/9) [`f051186`](https://github.com/Alduino/api-utils/commit/f051186ae55649d02f3c68de4d513ce44d6db5c3) Thanks [@Alduino](https://github.com/Alduino)! - Added an SSR compatible request function that doesn't use React contexts or hooks. If you implement this function, you should use a request function that is compatible with both the browser and a Node context (like [`cross-fetch`](https://www.npmjs.com/package/cross-fetch)).
+
 ## 0.2.1
 
 ### Patch Changes
