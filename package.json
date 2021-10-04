@@ -36,11 +36,11 @@
     },
     "size-limit": [
         {
-            "path": "dist/production.min.js",
+            "path": "dist/index.prod.min.js",
             "limit": "10 kb"
         },
         {
-            "path": "dist/index.esm.js",
+            "path": "index.mjs",
             "limit": "10 kb"
         }
     ],
