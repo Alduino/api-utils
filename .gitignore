@@ -89,6 +89,11 @@ typings/
 
 # Output files
 dist
+/*.js
+/*.mjs
+/*.d.ts
+!/*.config.js
+!/benchmark.js
 
 # pnpm store
 .pnpm-store/
