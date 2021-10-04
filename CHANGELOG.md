@@ -1,5 +1,15 @@
 # @alduino/api-utils
 
+## 0.4.0
+
+### Minor Changes
+
+-   [#13](https://github.com/Alduino/api-utils/pull/13) [`da9a78b`](https://github.com/Alduino/api-utils/commit/da9a78bb789f99d682b0fd77c95d213d574bd71e) Thanks [@Alduino](https://github.com/Alduino)! - Removed the option to pass `null` to the non-SWR functions. Means it also doesn't have `null` as a possible return either.
+
+### Patch Changes
+
+-   [`c65276c`](https://github.com/Alduino/api-utils/commit/c65276c9e9211bccd54fe4de533ccacc62f2b48b) Thanks [@Alduino](https://github.com/Alduino)! - Update `@alduino/pkg-lib` to v0.6.0
+
 ## 0.3.0
 
 ### Minor Changes
