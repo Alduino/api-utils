@@ -104,10 +104,10 @@ export function useSwrInfinite<Request, Response>(
  */
 export function useFetch<Request, Response>(
     endpoint: Endpoint<Request, Response>,
-    request: Request | null | (() => Request | null),
+    request: Request | (() => Request),
     config?: UseAsyncCallbackOptions<Response>,
     _fnName = "useFetch"
-): UseAsyncReturn<Response | null, []> {
+): UseAsyncReturn<Response, []> {
     type Body = Request extends RequestWithBody<infer Body> ? Body : never;
 
     const ctx = endpoint.apiContext.use();
@@ -123,15 +123,12 @@ export function useFetch<Request, Response>(
             ...config
         }),
         [fetchConfig, config]
-    ) as UseAsyncCallbackOptions<Response | null>;
+    ) as UseAsyncCallbackOptions<Response>;
 
     const args = useMemo(() => {
-        if (request === null) return null;
-
         if (typeof request === "function") {
             return () => {
                 const req = (request as () => Request)();
-                if (req === null) return null;
                 const url = getUrlFromEndpoint(endpoint, req, baseUrl);
                 if (isRequestWithBody(req))
                     return [url, req.body] as [string, Body];
@@ -146,14 +143,11 @@ export function useFetch<Request, Response>(
     }, [request, endpoint, baseUrl]);
 
     const fn = useCallback(async () => {
-        if (request === null) return null;
         const argsVal = typeof args === "function" ? args() : args;
-        if (argsVal === null) return null;
-
         return await endpoint.fetch(...argsVal);
     }, [args, endpoint]);
 
-    return useAsyncCallback<Response | null, []>(fn, fullConfig);
+    return useAsyncCallback<Response, []>(fn, fullConfig);
 }
 
 /**
@@ -167,7 +161,7 @@ export function useFetchDeferred<Request, Response>(
     endpoint: Endpoint<Request, Response>,
     config?: UseAsyncCallbackOptions<Response>,
     _fnName = "useFetchDeferred"
-): UseAsyncReturn<Response | null, [Request | null]> {
+): UseAsyncReturn<Response, [Request]> {
     type Body = Request extends RequestWithBody<infer Body> ? Body : never;
 
     const ctx = endpoint.apiContext.use();
@@ -183,12 +177,10 @@ export function useFetchDeferred<Request, Response>(
             ...config
         }),
         [fetchConfig, config]
-    ) as UseAsyncCallbackOptions<Response | null>;
+    ) as UseAsyncCallbackOptions<Response>;
 
     const loadArgs = useCallback(
-        (request: Request | null) => {
-            if (request === null) return null;
-
+        (request: Request) => {
             const url = getUrlFromEndpoint(endpoint, request, baseUrl);
             if (isRequestWithBody(request))
                 return [url, request.body] as [string, Body];
@@ -198,17 +190,14 @@ export function useFetchDeferred<Request, Response>(
     );
 
     const fn = useCallback(
-        async (req: Request | null) => {
-            if (req === null) return null;
+        async (req: Request) => {
             const args = loadArgs(req);
-            if (args === null) return null;
-
             return await endpoint.fetch(...args);
         },
         [loadArgs, endpoint]
     );
 
-    return useAsyncCallback<Response | null, [Request | null]>(fn, fullConfig);
+    return useAsyncCallback<Response, [Request]>(fn, fullConfig);
 }
 
 /**

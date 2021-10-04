@@ -90,7 +90,7 @@ typings/
 # Output files
 dist
 /*.js
-/*.mjs
+/*.esm.js
 /*.d.ts
 !/*.config.js
 !/benchmark.js
