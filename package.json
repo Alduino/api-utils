@@ -2,12 +2,12 @@
     "name": "@alduino/api-utils",
     "version": "0.3.0",
     "main": "index.js",
-    "module": "index.mjs",
+    "module": "index.esm.js",
     "typings": "index.d.ts",
     "files": [
         "dist",
         "index.js",
-        "index.mjs",
+        "index.esm.js",
         "index.d.ts"
     ],
     "scripts": {
@@ -40,7 +40,7 @@
             "limit": "10 kb"
         },
         {
-            "path": "index.mjs",
+            "path": "index.esm.js",
             "limit": "10 kb"
         }
     ],
@@ -54,7 +54,7 @@
         "titleTemplate": "{title}"
     },
     "devDependencies": {
-        "@alduino/pkg-lib": "^0.6.0",
+        "@alduino/pkg-lib": "^0.6.1",
         "@changesets/changelog-github": "^0.4.0",
         "@changesets/cli": "^2.16.0",
         "@size-limit/preset-small-lib": "^5.0.3",
