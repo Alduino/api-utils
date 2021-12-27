@@ -1,8 +1,13 @@
 {
     "name": "@alduino/api-utils",
     "description": "A collection of utilities to build an API client",
-    "keywords": ["api", "client", "utilities", "code-generation"],
-    "version": "0.4.0",
+    "keywords": [
+        "api",
+        "client",
+        "utilities",
+        "code-generation"
+    ],
+    "version": "0.4.1",
     "type": "module",
     "main": "./dist/index.js",
     "typings": "./dist/index.d.ts",
