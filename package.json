@@ -1,18 +1,15 @@
 {
     "name": "@alduino/api-utils",
     "version": "0.4.0",
-    "main": "index.js",
-    "module": "index.esm.js",
-    "typings": "index.d.ts",
+    "type": "module",
+    "main": "./dist/index.js",
+    "typings": "./dist/index.d.ts",
     "files": [
-        "dist",
-        "index.js",
-        "index.esm.js",
-        "index.d.ts"
+        "dist"
     ],
     "scripts": {
-        "dev": "pkg-lib watch",
-        "build": "pkg-lib build",
+        "dev": "tsup --watch",
+        "build": "tsup",
         "test": "jest",
         "test:ci": "jest --ci --reporters=default --reporters=jest-junit",
         "size": "size-limit",
@@ -54,7 +51,6 @@
         "titleTemplate": "{title}"
     },
     "devDependencies": {
-        "@alduino/pkg-lib": "^0.6.1",
         "@changesets/changelog-github": "^0.4.0",
         "@changesets/cli": "^2.16.0",
         "@size-limit/preset-small-lib": "^5.0.3",
@@ -74,6 +70,7 @@
         "react": "^17.0.2",
         "size-limit": "^5.0.3",
         "ts-jest": "^27.0.5",
+        "tsup": "^5.11.9",
         "typescript": "^4.4.2"
     },
     "peerDependencies": {
