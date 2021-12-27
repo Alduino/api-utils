@@ -10,7 +10,7 @@ import invariant from "tiny-invariant";
 import Endpoint from "./Endpoint";
 import RequestLoader from "./RequestLoader";
 import {isRequestWithBody, RequestWithBody} from "./RequestWithBody";
-import getRequestArguments from "./getRequestArguments";
+import getRequestArguments, {RequestArguments} from "./getRequestArguments";
 import getUrlFromEndpoint from "./getUrlFromEndpoint";
 
 /**
@@ -79,7 +79,7 @@ export function useSwrInfinite<Request, Response>(
     );
     const {baseUrl, swrConfig} = ctx;
 
-    const url = useCallback<Exclude<KeyLoader<Response>, null>>(
+    const url = useCallback<Exclude<KeyLoader<RequestArguments<Request> | null>, null>>(
         (idx, prevRes) => {
             const reqRes = request(idx, prevRes);
             if (reqRes == null) return null;
@@ -91,7 +91,7 @@ export function useSwrInfinite<Request, Response>(
         [request, endpoint.getKey, baseUrl]
     );
 
-    return useSWRInfinite(url, endpoint.fetch, {...swrConfig, ...config});
+    return useSWRInfinite<Response>(url, endpoint.fetch, {...swrConfig, ...config});
 }
 
 /**
