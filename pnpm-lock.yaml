@@ -20,7 +20,7 @@ specifiers:
   react: ^17.0.2
   react-async-hook: ^3.6.2
   size-limit: ^5.0.3
-  swr: ^1.0.0
+  swr: ^1.1.0
   tiny-invariant: ^1.1.0
   ts-jest: ^27.0.5
   tslib: ^2.3.1
@@ -29,7 +29,7 @@ specifiers:
 
 dependencies:
   react-async-hook: 3.6.2_react@17.0.2
-  swr: 1.0.0_react@17.0.2
+  swr: 1.1.2_react@17.0.2
   tiny-invariant: 1.1.0
   tslib: 2.3.1
 
@@ -2708,11 +2708,6 @@ packages:
     resolution: {integrity: sha1-3zrhmayt+31ECqrgsp4icrJOxhk=}
     engines: {node: '>=0.4.0'}
     dev: true
-
-  /dequal/2.0.2:
-    resolution: {integrity: sha512-q9K8BlJVxK7hQYqa6XISGmBZbtQQWVXSrRrWreHC94rMt1QL/Impruc+7p2CYSYuVIUr+YCt6hjrs1kkdJRTug==}
-    engines: {node: '>=6'}
-    dev: false
 
   /des.js/1.0.1:
     resolution: {integrity: sha512-Q0I4pfFrv2VPd34/vfLrFOoRmlYj3OV50i7fskps1jZWK1kApMWWT9G6RRUeYedLcBDIhnSDaUvJMb3AhUlaEA==}
@@ -7480,12 +7475,11 @@ packages:
       stable: 0.1.8
     dev: true
 
-  /swr/1.0.0_react@17.0.2:
-    resolution: {integrity: sha512-v55Dr+vxIFiUyGxC5W4uN5falxHxYdbpb/R3bO+bSG+svbC9bUWmupy4NM/2pER7X8OvgwJWu0AiSoGy0ND9ew==}
+  /swr/1.1.2_react@17.0.2:
+    resolution: {integrity: sha512-UsM0eo5T+kRPyWFZtWRx2XR5qzohs/LS4lDC0GCyLpCYFmsfTk28UCVDbOE9+KtoXY4FnwHYiF+ZYEU3hnJ1lQ==}
     peerDependencies:
-      react: ^16.11.0 || ^17.0.0
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      dequal: 2.0.2
       react: 17.0.2
     dev: false
 
