@@ -24,7 +24,7 @@ jobs:
             - name: install dependencies
               run: pnpm install
             - name: create versions
-              uses: changesets/action@master
+              uses: changesets/action@v1
               with:
                   publish: pnpm release
               env:
