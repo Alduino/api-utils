@@ -1,5 +1,7 @@
 {
     "name": "@alduino/api-utils",
+    "description": "A collection of utilities to build an API client",
+    "keywords": ["api", "client", "utilities", "code-generation"],
     "version": "0.4.0",
     "type": "module",
     "main": "./dist/index.js",
@@ -49,6 +51,11 @@
         "suiteNameTemplate": "{filepath}",
         "classNameTemplate": "{classname}",
         "titleTemplate": "{title}"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Alduino/api-utils.git"
     },
     "devDependencies": {
         "@changesets/changelog-github": "^0.4.0",
