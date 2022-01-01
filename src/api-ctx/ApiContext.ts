@@ -1,5 +1,6 @@
 import {
     createContext,
+    createElement,
     ReactElement,
     ReactNode,
     useContext,
@@ -18,6 +19,7 @@ export interface ApiProviderProps {
 
 export default interface ApiContext {
     use(): ApiContextType | null;
+
     Provider(props: ApiProviderProps): ReactElement;
 }
 
@@ -43,10 +45,12 @@ export class ApiContextImpl implements ApiContext {
             [baseUrl, swrConfig]
         );
 
-        return (
-            <this.context.Provider value={contextValue}>
-                {children}
-            </this.context.Provider>
+        return createElement(
+            this.context.Provider,
+            {
+                value: contextValue
+            },
+            children
         );
     }
 }

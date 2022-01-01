@@ -14,7 +14,6 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "moduleResolution": "node",
-        "jsx": "react-jsxdev",
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
