@@ -1,5 +1,11 @@
 # @alduino/api-utils
 
+## 0.4.2
+
+### Patch Changes
+
+-   [`4b99d28`](https://github.com/Alduino/api-utils/commit/4b99d283837624c03bd0b5a5fea83f4c9c7fea50) Thanks [@Alduino](https://github.com/Alduino)! - Fix issue where the library would expect a `React` global to exist
+
 ## 0.4.1
 
 ### Patch Changes
