@@ -1,5 +1,11 @@
 # @alduino/api-utils
 
+## 0.4.3
+
+### Patch Changes
+
+-   [`a104256`](https://github.com/Alduino/api-utils/commit/a10425696312b0022b7c1b4b1c6fbf637006cbe6) Thanks [@Alduino](https://github.com/Alduino)! - Upgraded SWR to 1.2 - using ESModules should now work properly, as this version of SWR adds the required .mjs files (see [swr#1758](https://github.com/vercel/swr/issues/1758))
+
 ## 0.4.2
 
 ### Patch Changes
