@@ -90,7 +90,7 @@
     },
     "dependencies": {
         "react-async-hook": "^3.6.2",
-        "swr": "^1.1.0",
+        "swr": "^1.2.0",
         "tiny-invariant": "^1.1.0",
         "tslib": "^2.3.1"
     }
