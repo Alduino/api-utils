@@ -40,12 +40,7 @@
     },
     "size-limit": [
         {
-            "path": "dist/index.prod.min.js",
-            "limit": "10 kb"
-        },
-        {
-            "path": "index.esm.js",
-            "limit": "10 kb"
+            "path": "index.js"
         }
     ],
     "jest-junit": {
