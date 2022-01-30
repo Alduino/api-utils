@@ -40,7 +40,7 @@
     },
     "size-limit": [
         {
-            "path": "index.js"
+            "path": "dist/index.js"
         }
     ],
     "jest-junit": {
