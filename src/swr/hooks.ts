@@ -79,7 +79,9 @@ export function useSwrInfinite<Request, Response>(
     );
     const {baseUrl, swrConfig} = ctx;
 
-    const url = useCallback<Exclude<KeyLoader<RequestArguments<Request> | null>, null>>(
+    const url = useCallback<
+        Exclude<KeyLoader<RequestArguments<Request> | null>, null>
+    >(
         (idx, prevRes) => {
             const reqRes = request(idx, prevRes);
             if (reqRes == null) return null;
@@ -91,7 +93,10 @@ export function useSwrInfinite<Request, Response>(
         [request, endpoint.getKey, baseUrl]
     );
 
-    return useSWRInfinite<Response>(url, endpoint.fetch, {...swrConfig, ...config});
+    return useSWRInfinite<Response>(url, endpoint.fetch, {
+        ...swrConfig,
+        ...config
+    });
 }
 
 /**
@@ -216,4 +221,39 @@ export async function sendRequest<Request, Response>(
         ? ([url, request.body] as [string, Body])
         : ([url] as [string, Body?]);
     return await endpoint.fetch(...args);
+}
+
+/**
+ * Returns the URL of the endpoint, filled out via the specified parameters. Does not use the React context, so that it
+ * can be used with server-side rendering.
+ * @param endpoint The endpoint to get the URL from
+ * @param baseUrl The URL that the API is hosted at
+ * @param request The request data to be put in the URL, not including the body
+ */
+export function getEndpointUrl<Request>(
+    endpoint: Endpoint<Request, unknown>,
+    baseUrl: string,
+    request: Omit<Request, "body">
+): string {
+    return getUrlFromEndpoint(endpoint, request, baseUrl);
+}
+
+/**
+ * Returns the URL of the endpoint, filled out via the specified parameters
+ * @param endpoint The endpoint to get the URL from
+ * @param request The request data to be put in the URL, not including the body
+ * @param _fnName Internal parameter for library use only
+ */
+export function useEndpointUrl<Request>(
+    endpoint: Endpoint<Request, unknown>,
+    request: Omit<Request, "body">,
+    _fnName = "useEndpointUrl"
+): string {
+    const ctx = endpoint.apiContext.use();
+    invariant(
+        ctx !== null,
+        `${_fnName} is being used in a component that is not wrapped by <ApiProvider />`
+    );
+
+    return getUrlFromEndpoint(endpoint, request, ctx.baseUrl);
 }
