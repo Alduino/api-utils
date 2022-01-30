@@ -1,5 +1,11 @@
 # @alduino/api-utils
 
+## 0.5.0
+
+### Minor Changes
+
+-   [#18](https://github.com/Alduino/api-utils/pull/18) [`59dcb4b`](https://github.com/Alduino/api-utils/commit/59dcb4b2294cb386551e0d94c7ea58286e8c9b83) Thanks [@Alduino](https://github.com/Alduino)! - Added functions to get the URL that a request would be sent to. These are useful for example if your API serves an image, so you can set it as the `src` instead of a blob.
+
 ## 0.4.3
 
 ### Patch Changes

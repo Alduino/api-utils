@@ -7,7 +7,7 @@
         "utilities",
         "code-generation"
     ],
-    "version": "0.4.3",
+    "version": "0.5.0",
     "type": "module",
     "main": "./dist/index.js",
     "typings": "./dist/index.d.ts",
