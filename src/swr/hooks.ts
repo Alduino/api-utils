@@ -10,6 +10,7 @@ import invariant from "tiny-invariant";
 import Endpoint from "./Endpoint";
 import RequestLoader from "./RequestLoader";
 import {isRequestWithBody, RequestWithBody} from "./RequestWithBody";
+import fetchWithRetries from "./fetchWithRetries";
 import getRequestArguments, {RequestArguments} from "./getRequestArguments";
 import getUrlFromEndpoint from "./getUrlFromEndpoint";
 
@@ -149,7 +150,7 @@ export function useFetch<Request, Response>(
 
     const fn = useCallback(async () => {
         const argsVal = typeof args === "function" ? args() : args;
-        return await endpoint.fetch(...argsVal);
+        return await fetchWithRetries(endpoint, argsVal);
     }, [args, endpoint]);
 
     return useAsyncCallback<Response, []>(fn, fullConfig);
@@ -197,7 +198,7 @@ export function useFetchDeferred<Request, Response>(
     const fn = useCallback(
         async (req: Request) => {
             const args = loadArgs(req);
-            return await endpoint.fetch(...args);
+            return await fetchWithRetries(endpoint, args);
         },
         [loadArgs, endpoint]
     );
@@ -220,7 +221,7 @@ export async function sendRequest<Request, Response>(
     const args = isRequestWithBody(request)
         ? ([url, request.body] as [string, Body])
         : ([url] as [string, Body?]);
-    return await endpoint.fetch(...args);
+    return await fetchWithRetries(endpoint, args);
 }
 
 /**

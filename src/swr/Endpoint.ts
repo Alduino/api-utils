@@ -1,4 +1,5 @@
 import ApiContext from "../api-ctx";
+import {RetryConfig} from "../retry";
 import {RequestWithBody, RequestWithOptionalBody} from "./RequestWithBody";
 
 type Fetch<Request, Response> = Request extends RequestWithBody<infer Body>
@@ -43,4 +44,9 @@ export default interface Endpoint<Request, Response> {
      * "repositories/7/search?query=example"
      */
     getKey(request: Request): string;
+
+    /**
+     * Options for request retries. By default requests are not retried.
+     */
+    retry?: RetryConfig;
 }
