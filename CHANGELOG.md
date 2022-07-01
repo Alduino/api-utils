@@ -1,5 +1,15 @@
 # @alduino/api-utils
 
+## 0.6.0
+
+### Minor Changes
+
+-   [#21](https://github.com/Alduino/api-utils/pull/21) [`5b80937`](https://github.com/Alduino/api-utils/commit/5b8093789e85f7f584623095eb67bd259b2fb06f) Thanks [@Alduino](https://github.com/Alduino)! - Added request retries using exponential fallback. You can opt-in to this feature by setting the `retry` option on endpoints where you want to enable it.
+
+### Patch Changes
+
+-   [#20](https://github.com/Alduino/api-utils/pull/20) [`dc9dc29`](https://github.com/Alduino/api-utils/commit/dc9dc29457bb742bf9682ef7c2435532c9b6387c) Thanks [@Alduino](https://github.com/Alduino)! - Added `sideEffects: false` to the package.json to enable the Webpack optimisation. You may see smaller bundle sizes from this.
+
 ## 0.5.0
 
 ### Minor Changes
